@@ -1,0 +1,133 @@
+---
+openapi: 3.0.1
+info:
+  title: Rails Template API V1
+  version: v1
+paths:
+  "/api/v1/transactions":
+    post:
+      summary: Creates a transaction
+      tags:
+      - Transactions
+      parameters:
+      - name: client
+        in: header
+        schema:
+          type: string
+      - name: access-token
+        in: header
+        schema:
+          type: string
+      - name: uid
+        in: header
+        schema:
+          type: string
+      responses:
+        '201':
+          description: transaction created
+          content: {}
+        '401':
+          description: unauthorized request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                symbol:
+                  type: string
+                description:
+                  type: string
+                value:
+                  type: number
+                amount:
+                  type: number
+          application/xml:
+            schema:
+              type: object
+              properties:
+                symbol:
+                  type: string
+                description:
+                  type: string
+                value:
+                  type: number
+                amount:
+                  type: number
+  "/api/v1/transactions/{id}":
+    get:
+      summary: Retrieves a transaction
+      tags:
+      - Transactions
+      parameters:
+      - name: client
+        in: header
+        schema:
+          type: string
+      - name: access-token
+        in: header
+        schema:
+          type: string
+      - name: uid
+        in: header
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: transaction found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  symbol:
+                    type: string
+                  description:
+                    type: string
+                  value:
+                    type: number
+                  amount:
+                    type: number
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  symbol:
+                    type: string
+                  description:
+                    type: string
+                  value:
+                    type: number
+                  amount:
+                    type: number
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+        '401':
+          description: unauthorized request
+          content: {}
+        '404':
+          description: transaction not found
+          content: {}
+servers:
+- url: http://localhost:3000
+- url: https://rails-template-api.herokuapp.com/

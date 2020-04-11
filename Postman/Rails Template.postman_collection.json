@@ -1,0 +1,664 @@
+{
+	"info": {
+		"_postman_id": "d42f3644-1e26-4b8c-b149-c9ca7a99eba8",
+		"name": "Rails Template",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7258d404-c635-44c8-a296-c64ccab179f7",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"client\", postman.getResponseHeader(\"client\"));",
+									"pm.environment.set(\"access-token\", postman.getResponseHeader(\"access-token\"));",
+									"pm.environment.set(\"id\", data.data.id);",
+									"pm.environment.set(\"uid\", data.data.uid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@gmail.com\",\n\t\"first_name\": \"Test\",\n\t\"last_name\": \"User\",\n\t\"phone_number\": \"602-309-0090\",\n\t\"password\": \"password\",\n\t\"password_confirmation\": \"password\",\n\t\"confirm_success_url\": \"www.google.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/auth",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b1ce357-0f12-4857-a9a1-bed79e2d487f",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"client\", postman.getResponseHeader(\"client\"));",
+									"pm.environment.set(\"access-token\", postman.getResponseHeader(\"access-token\"));",
+									"pm.environment.set(\"token-type\", postman.getResponseHeader(\"token-type\"));",
+									"pm.environment.set(\"expiry\", postman.getResponseHeader(\"expiry\"));",
+									"pm.environment.set(\"id\", data.data.id);",
+									"pm.environment.set(\"uid\", data.data.uid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "uid",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "client",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@gmail.com\",\n\t\"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/auth/sign_in",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"sign_in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Out",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "uid",
+								"value": "{{uid}}",
+								"type": "text"
+							},
+							{
+								"key": "client",
+								"value": "{{client}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/auth/sign_out",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"sign_out"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8f56ffdc-1f8d-4b65-8eab-6a8b767c991c",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"client\", postman.getResponseHeader(\"client\"));",
+									"pm.environment.set(\"id\", data.data.id);",
+									"pm.environment.set(\"uid\", data.data.uid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"uid\": \"{{uid}}\",\n\t\"client\": \"{{client}}\",\n\t\"access-token\": \"{{access-token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/auth/validate_token",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"validate_token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Password Reset Email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@gmail.com\",\n\t\"redirect_url\": \"https://www.google.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/auth/password",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "uid",
+								"value": "{{uid}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{access-token}}",
+								"type": "text"
+							},
+							{
+								"key": "client",
+								"value": "{{client}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/auth",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "17507908-cb0e-4bd6-a4cd-5d4416c5ebd1",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"client\", postman.getResponseHeader(\"client\"));",
+									"pm.environment.set(\"access-token\", postman.getResponseHeader(\"access-token\"));",
+									"pm.environment.set(\"id\", data.data.id);",
+									"pm.environment.set(\"uid\", data.data.uid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "uid",
+								"type": "text",
+								"value": "{{uid}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "{{access-token}}"
+							},
+							{
+								"key": "client",
+								"type": "text",
+								"value": "{{client}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@gmail.com\",\n\t\"first_name\": \"Test\",\n\t\"last_name\": \"User\",\n\t\"phone_number\": \"602-309-0090\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/auth",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "List Transactions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "13915663-35c6-4adf-a7ce-9c74f697d729",
+								"exec": [
+									"if (postman.getResponseHeader(\"access-token\"))",
+									"{",
+									"    pm.environment.set(\"access-token\", postman.getResponseHeader(\"access-token\"));",
+									"}",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"if (data.length > 0)",
+									"{",
+									"    pm.environment.set(\"transaction\", data[0].id);",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "uid",
+								"value": "{{uid}}",
+								"type": "text"
+							},
+							{
+								"key": "client",
+								"value": "{{client}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{access-token}}",
+								"type": "text"
+							},
+							{
+								"key": "token-type",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "expiry",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/transactions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Transaction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f2804bcb-4e35-4035-a76b-09f3901ab394",
+								"exec": [
+									"if (postman.getResponseHeader(\"access-token\"))",
+									"{",
+									"    pm.environment.set(\"access-token\", postman.getResponseHeader(\"access-token\"));",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "uid",
+								"value": "{{uid}}",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "{{access-token}}",
+								"type": "text"
+							},
+							{
+								"key": "client",
+								"value": "{{client}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"symbol\": \"VOO\",\n  \"description\": \"test transaction\",\n  \"value\": 220,\n  \"amount\": 0.5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/transactions",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Transaction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0f019914-04f3-4c25-8f62-95f7dc206305",
+								"exec": [
+									"if (postman.getResponseHeader(\"access-token\"))",
+									"{",
+									"    pm.environment.set(\"access-token\", postman.getResponseHeader(\"access-token\"));",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "uid",
+								"type": "text",
+								"value": "{{uid}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "{{access-token}}"
+							},
+							{
+								"key": "client",
+								"type": "text",
+								"value": "{{client}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/transactions/{{transaction}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"{{transaction}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Transaction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29c86ee7-32e3-4f8b-bf64-34d835e81ea2",
+								"exec": [
+									"if (postman.getResponseHeader(\"access-token\"))",
+									"{",
+									"    pm.environment.set(\"access-token\", postman.getResponseHeader(\"access-token\"));",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "uid",
+								"type": "text",
+								"value": "{{uid}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "{{access-token}}"
+							},
+							{
+								"key": "client",
+								"type": "text",
+								"value": "{{client}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"symbol\": \"SCHK\",\n  \"description\": \"Update\",\n  \"value\": 21.31,\n  \"amount\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/transactions/{{transaction}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"{{transaction}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Transaction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f2255cb-61d5-4fb9-a1fa-85adbf61095d",
+								"exec": [
+									"if (postman.getResponseHeader(\"access-token\"))",
+									"{",
+									"    pm.environment.set(\"access-token\", postman.getResponseHeader(\"access-token\"));",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "uid",
+								"type": "text",
+								"value": "{{uid}}"
+							},
+							{
+								"key": "access-token",
+								"type": "text",
+								"value": "{{access-token}}"
+							},
+							{
+								"key": "client",
+								"type": "text",
+								"value": "{{client}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}://{{uri}}/api/v1/transactions/{{transaction}}",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"{{transaction}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
