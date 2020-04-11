@@ -1,4 +1,4 @@
-# Rails Template API
+# Rails API Template
 Rails 6 API template with token auth, swagger, rspec tests, postman and a sample
 resource. 
 
